@@ -1,7 +1,7 @@
 * MNIST IDX Parser
 The MNIST dataset is (or should be) publicly available at http://yann.lecun.com/exdb/mnist/, but often it's not, so we will be using this Kaggle alternative https://www.kaggle.com/datasets/hojjatk/mnist-dataset primarily. I will also provide ~cURL~ scripts for downloading the datasets from the originally intendended source.
 
-** 1 Getting the Dataset
+** Getting the Dataset
 First, clone this repository to your local machine:
 #+begin_src bash
   git clone https://github.com/diogobonofre/machine_learning
@@ -79,6 +79,12 @@ Consulting the IDX file format specification on https://www.fon.hum.uva.nl/praat
     - Also search about optimizations for byte reading using Python generators with yield and chunk reading.
 
 ** Implementing an MNIST IDX Label Parser
+You can check the complete implementation in [[file:train_labels_parser.py][train_label_parser_raw.py]], but the overall idea is really simple. This is the structure of the parser:
+- Firstly, we'll read four bytes from the file to be parsed. From these, the two first bytes will be ~0~, the third will tell us the type of the data, and the fourth, how many dimensions this data has.
+- Then, we will read the next group, or groups depending on how many dimensions we're dealing with, these will tell us how big these dimensions are/how much information each one of them have.
+- And finally, we will read the rest of the file and store into a Python byte object for optimization purposes.
+- Then, our algorithm just evaluate each byte in the byte object and increment the correspondent index in our counter list.
+This is the general structure of the aforementioned algorithm. There are other details that could be interesting to analyze from a beginner point of view in the file, but this task is left to you.
 
 * References
 - [[https://youtu.be/oSCVb4Ts-G4?si=8fZTQhB1fSTtoMTw][What's the REAL difference between binary files and text?]]
