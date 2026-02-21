@@ -90,3 +90,5 @@ This is the general structure of the aforementioned algorithm. There are other d
 - [[https://youtu.be/oSCVb4Ts-G4?si=8fZTQhB1fSTtoMTw][What's the REAL difference between binary files and text?]]
 - [[http://www.catb.org/~esr/writings/taoup/html/ch05s02.html#id2901882][The Art of Unix Programming - Data File Metaformats C5. Textuality]]
 - [[https://realpython.com/python-bytes/][Bytes Objects: Handling Binary Data in Python]]
+
+_DISCLAIMER_: This content is entirely written by a human, without aid of any kind of AI models.
