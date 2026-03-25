@@ -6,13 +6,13 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-# Loading the data
+### LOADING THE DATA
 # Here, the `X` matrix contains the features, while `y` represents the target labels.
 # The `as_frame=True` arguments returns the data in a Pandas DataFrame format for us to
 # easily work with it.
 X, y = load_iris(as_frame=True).data, load_iris(as_frame=True).target
 
-# Division between train and test
+### DIVISION BETWEEN TRAIN AND TEST
 # Will divide the dataset between these four variables with 75% of it for train and 25%
 # for the test split.
 #
@@ -20,7 +20,7 @@ X, y = load_iris(as_frame=True).data, load_iris(as_frame=True).target
 # overfitting with the model failing to generalize to new data.
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=18)
 
-# Pre-processing and transformation
+### PRE-PROCESSING AND TRANSFORMATION
 # Many algorithms work better when all the data is in the same scale. Scikit-learn provides ob-
 # jects called transformers with `fit()` and `transform()` methods for this tasks.
 #
@@ -32,7 +32,7 @@ scaler = StandardScaler().fit(X_train)
 X_train = scaler.transform(X_train)
 X_test = scaler.transform(X_test)
 
-# Select the estimator & model trainment
+### SELECT THE ESTIMATOR & MODEL TRAINMENT
 # The scikit-learn native algorithms are called estimators, some of them are:
 # + Random Forest
 # + Support Vector Machine
@@ -46,7 +46,7 @@ knn = KNeighborsClassifier(n_neighbors=5)
 # Train the model using the standardized data.
 knn.fit(X_train, y_train)
 
-# Prediction and assessment
+### PREDICTION AND ASSESSMENT
 # Once the estimator is trained you do not need to retrain it in order to predict
 # the results to new data.
 
@@ -59,7 +59,7 @@ print(f"Model Accuracy: {acc}")
 print(classification_report(y_test, y_pred))
 print(confusion_matrix(y_test, y_pred))
 
-# Exercises
+# EXERCISES
 # 1. Explain the difference between the StandardScaler and at least two other
 #    scalers from Scikit-learn.
 # 2. Explain what the `fit()` and `transform()` functions do.
