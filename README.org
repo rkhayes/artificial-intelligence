@@ -1,0 +1,14 @@
+* Artificial Intelligence
+A collection of personal research and empirical experiments in AI. This repository bridges the gap between classical algorithmic approaches and modern paradigms, serving as both a technical sandbox and a conceptual reference for understanding the evolution of the field.
+
+** In Progress
+- [[file:mnist_idx_parser/][MNIST IDX Parser]]
+  A low-level utility designed to parse the IDX file format used by the MNIST database. This project focuses on handling binary data streams and byte-order conversions to extract raw handwritten digit images and labels without relying on high-level abstraction libraries.
+- [[file:rosenblatt-perceptron/][Rosenblatt Perceptron]]
+  A foundational implementation of the 1958 Perceptron algorithm. This project explores the roots of neural networks by simulating a single-layer linear binary classifier, demonstrating the core mechanics of weight updates and threshold logic units.
+- [[file:retinal-disease-classifier/][Retinal Disease Classifier]]
+  An applied computer vision project focused on medical imaging. It utilizes deep learning architectures to identify pathologies in retinal scans, emphasizing data preprocessing, augmentation strategies, and model interpretability in a clinical context.
+- [[file:machine-learning-with-sklearn/][Exploring Scikit-Learn]]
+  A comprehensive survey of classical machine learning methodologies. This module documents implementations of regression, clustering, and dimensionality reduction, focusing on rigorous model evaluation and hyperparameter tuning using the scikit-learn ecosystem.
+- [[file:processing-data-with-numpy/][Exploring NumPy]]
+  A deep dive into vectorized computation and N-dimensional array manipulation. This section serves as a reference for high-performance numerical operations, memory-efficient data handling, and the linear algebra foundations essential for computational research.

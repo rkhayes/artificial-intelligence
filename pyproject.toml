@@ -1,7 +1,11 @@
 [project]
 name = "artificial-intelligence"
 version = "0.1.0"
+<<<<<<< HEAD
 description = ""
+=======
+description = "A collection of personal research and empirical experiments in AI"
+>>>>>>> 3a130d6 (Added content on README to improve discoverability)
 readme = "README.org"
 requires-python = ">=3.11"
 dependencies = [
