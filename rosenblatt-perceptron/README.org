@@ -1,0 +1,5 @@
+* Implementing a Single-Layer Perceptron
+
+* References
+- Rosenblatt, 1958
+- McCulloch and Pitts, 1943

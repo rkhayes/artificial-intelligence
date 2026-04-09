@@ -1,9 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.datasets import load_breast_cancer
 
-### EXPLORATORY DATA ANALYSIS
+# EXPLORATORY DATA ANALYSIS
 # Loading the data
 X, y = load_breast_cancer(as_frame=True).data, load_breast_cancer(as_frame=True).target
 
@@ -38,4 +39,8 @@ data.sample(n=5, random_state=18)
 
 # Ok, it's enough of lines and columns. Let's plot the data!
 
-### PLOTTING THE DATA
+# PLOTTING THE DATA
+sns.scatterplot(data, x="mean radius", y="mean texture", hue="target")
+sns.pairplot(data, hue="target")
+data.hist()
+plt.show()
