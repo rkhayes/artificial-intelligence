@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2026-04-02 Thu 19:40 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Introdução ao Machine Learning com Scikit-Learn e Pandas</title>
+<meta name="author" content="Diogo G. Bonofre dos Santos" />
+<meta name="generator" content="Org Mode" />
+<style type="text/css">
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-c:before { content: 'C'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'JavaScript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Introdução ao Machine Learning com Scikit-Learn e Pandas</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org4a8c41d">1. Modelo Classificador K-NN (Iris)</a>
+<ul>
+<li><a href="#org4479a02">1.1. Análise Exploratória de Dados com Pandas</a></li>
+<li><a href="#org0e8094a">1.2. Implementação do Modelo</a></li>
+<li><a href="#org1ae97d7">1.3. Interpretando as Métricas do Modelo</a></li>
+<li><a href="#orgfd42e50">1.4. Notas Metodológicas</a></li>
+<li><a href="#org706e415">1.5. Exercícios Propostos</a></li>
+</ul>
+</li>
+<li><a href="#orge0ebf53">2. Modelo de Regressão K-NN (California Housing)</a></li>
+<li><a href="#orge27c7fe">3. Referências</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4a8c41d" class="outline-2">
+<h2 id="org4a8c41d"><span class="section-number-2">1.</span> Modelo Classificador K-NN (Iris)</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org4479a02" class="outline-3">
+<h3 id="org4479a02"><span class="section-number-3">1.1.</span> Análise Exploratória de Dados com Pandas</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Antes de irmos as vias de fato e treinarmos o modelo com Scikit-Learn, precisamos compreender a estrutura dos dados os quais estamos lidando e fazer o levantamento das necessidades de tratamento de dados para os métodos computacionais que desejamos utilizar.
+</p>
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFDFDF; font-weight: bold;">import</span> pandas <span style="color: #DFDFDF; font-weight: bold;">as</span> pd
+<span style="color: #DFDFDF; font-weight: bold;">import</span> seaborn <span style="color: #DFDFDF; font-weight: bold;">as</span> sns
+<span style="color: #DFDFDF; font-weight: bold;">import</span> matplotlib.pyplot <span style="color: #DFDFDF; font-weight: bold;">as</span> plt
+<span style="color: #DFDFDF; font-weight: bold;">from</span> sklearn.datasets <span style="color: #DFDFDF; font-weight: bold;">import</span> load_iris
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Carrega os dados em um DataFrame Pandas
+</span><span style="color: #bbc2cf;">iris</span> <span style="color: #bbc2cf;">=</span> load_iris(as_frame<span style="color: #bbc2cf;">=</span><span style="color: #bbc2cf;">True</span>)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">DataFrame completo (vari&#225;veis preditoras + vari&#225;vel alvo)
+</span><span style="color: #bbc2cf;">df</span> <span style="color: #bbc2cf;">=</span> iris.frame
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Mapeia a vari&#225;vel alvo para os nomes reais das esp&#233;cies para facilitar a leitura
+</span><span style="color: #bbc2cf;">df</span>[<span style="color: #b4916d;">'species'</span>] <span style="color: #bbc2cf;">=</span> df[<span style="color: #b4916d;">'target'</span>].<span style="color: #DFDFDF; font-weight: bold;">map</span>(<span style="color: #DFDFDF; font-weight: bold;">dict</span>(<span style="color: #DFDFDF; font-weight: bold;">enumerate</span>(iris.target_names)))
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Verifica a tabela de caracter&#237;sticas e r&#243;tulos
+</span><span style="color: #DFDFDF; font-weight: bold;">print</span>(3 <span style="color: #bbc2cf;">*</span> <span style="color: #b4916d;">"5 PRIMEIRAS LINHAS "</span>)
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(df.head())
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Informa&#231;&#245;es sobre a estrutura dos dados
+</span><span style="color: #DFDFDF; font-weight: bold;">print</span>(3 <span style="color: #bbc2cf;">*</span> <span style="color: #b4916d;">"INFO ESTRUTURAL "</span>)
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(df.info())
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Auxilia na detec&#231;&#227;o num&#233;rica de valores at&#237;picos (outliers)
+</span><span style="color: #DFDFDF; font-weight: bold;">print</span>(3 <span style="color: #bbc2cf;">*</span> <span style="color: #b4916d;">"ESTAT&#205;STICAS DESCRITIVAS "</span>)
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(df.describe())
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Pairplot: para visualiza&#231;&#227;o da rela&#231;&#227;o cruzada entre todas as vari&#225;veis
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">e a separabilidade das classes.
+</span>sns.pairplot(data<span style="color: #bbc2cf;">=</span>df.drop(<span style="color: #b4916d;">"target"</span>, axis<span style="color: #bbc2cf;">=</span>1), hue<span style="color: #bbc2cf;">=</span><span style="color: #b4916d;">"species"</span>, diag_kind<span style="color: #bbc2cf;">=</span><span style="color: #b4916d;">"kde"</span>)
+plt.suptitle(<span style="color: #b4916d;">"Rela&#231;&#227;o entre Vari&#225;veis (Pairplot)"</span>, y<span style="color: #bbc2cf;">=</span>1.02)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Boxplot: o melhor para detectar visualmente valores at&#237;picos em cada vari&#225;vel.
+</span>plt.figure(figsize<span style="color: #bbc2cf;">=</span>(10, 6))
+sns.boxplot(data<span style="color: #bbc2cf;">=</span>df.drop([<span style="color: #b4916d;">"target"</span>, <span style="color: #b4916d;">"species"</span>], axis<span style="color: #bbc2cf;">=</span>1), orient<span style="color: #bbc2cf;">=</span><span style="color: #b4916d;">"h"</span>, palette<span style="color: #bbc2cf;">=</span><span style="color: #b4916d;">"Set2"</span>)
+plt.title(<span style="color: #b4916d;">"Distribui&#231;&#227;o e detec&#231;&#227;o de valores at&#237;picos"</span>)
+
+plt.show()
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0e8094a" class="outline-3">
+<h3 id="org0e8094a"><span class="section-number-3">1.2.</span> Implementação do Modelo</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-python"><code><span style="color: #DFDFDF; font-weight: bold;">from</span> sklearn.datasets <span style="color: #DFDFDF; font-weight: bold;">import</span> load_iris
+<span style="color: #DFDFDF; font-weight: bold;">from</span> sklearn.model_selection <span style="color: #DFDFDF; font-weight: bold;">import</span> train_test_split
+<span style="color: #DFDFDF; font-weight: bold;">from</span> sklearn.preprocessing <span style="color: #DFDFDF; font-weight: bold;">import</span> StandardScaler
+<span style="color: #DFDFDF; font-weight: bold;">from</span> sklearn.neighbors <span style="color: #DFDFDF; font-weight: bold;">import</span> KNeighborsClassifier
+<span style="color: #DFDFDF; font-weight: bold;">from</span> sklearn.metrics <span style="color: #DFDFDF; font-weight: bold;">import</span> accuracy_score, classification_report, confusion_matrix
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Carregamento dos dados
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Aqui, a matriz `X` cont&#233;m as caracter&#237;sticas (features), enquanto `y` representa os r&#243;tulos de destino (alvos).
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">O argumento `as_frame=True` retorna os dados no formato DataFrame do Pandas para facilitar o manuseio.
+</span><span style="color: #bbc2cf;">X</span>, <span style="color: #bbc2cf;">y</span> <span style="color: #bbc2cf;">=</span> load_iris(as_frame<span style="color: #bbc2cf;">=</span><span style="color: #bbc2cf;">True</span>).data, load_iris(as_frame<span style="color: #bbc2cf;">=</span><span style="color: #bbc2cf;">True</span>).target
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Divis&#227;o entre treino e teste
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Dividiremos o conjunto de dados entre estas quatro vari&#225;veis, com 75% para treino e 25% para teste.
+</span><span style="color: #98be65;">#</span><span style="color: #98be65;">
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Obs.: Treinar e testar um modelo com os mesmos dados &#233; um erro metodol&#243;gico que leva ao
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">overfitting (sobreajuste), fazendo com que o modelo falhe ao generalizar para novos dados.
+</span><span style="color: #bbc2cf;">X_train</span>, <span style="color: #bbc2cf;">X_test</span>, <span style="color: #bbc2cf;">y_train</span>, <span style="color: #bbc2cf;">y_test</span> <span style="color: #bbc2cf;">=</span> train_test_split(X, y, test_size<span style="color: #bbc2cf;">=</span>0.25, random_state<span style="color: #bbc2cf;">=</span>18)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Pr&#233;-processamento e transforma&#231;&#227;o
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Muitos algoritmos funcionam melhor quando todos os dados est&#227;o na mesma escala. O Scikit-learn
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">fornece objetos chamados "transformers" (transformadores) com os m&#233;todos `fit()` e `transform()` para isso.
+</span><span style="color: #98be65;">#</span><span style="color: #98be65;">
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">&#201; fundamental que a transforma&#231;&#227;o (como a padroniza&#231;&#227;o) aprenda os par&#226;metros apenas no
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">conjunto de treino e aplique essa transforma&#231;&#227;o tanto nos dados de treino quanto nos dados de teste reservados.
+</span><span style="color: #98be65;">#</span><span style="color: #98be65;">
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">O uso do random_state garante a reprodutibilidade do experimento.
+</span><span style="color: #bbc2cf;">scaler</span> <span style="color: #bbc2cf;">=</span> StandardScaler().fit(X_train)
+
+<span style="color: #bbc2cf;">X_train_scaled</span> <span style="color: #bbc2cf;">=</span> scaler.transform(X_train)
+<span style="color: #bbc2cf;">X_test_scaled</span> <span style="color: #bbc2cf;">=</span> scaler.transform(X_test)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Sele&#231;&#227;o do estimador e treinamento do modelo
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Os algoritmos nativos do Scikit-learn s&#227;o chamados de estimadores (estimators). Alguns exemplos:
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">+ Random Forest (Floresta Aleat&#243;ria)
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">+ Support Vector Machine (M&#225;quina de Vetores de Suporte)
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">+ K-Nearest Neighbors (K-Vizinhos Mais Pr&#243;ximos)
+</span><span style="color: #98be65;">#</span><span style="color: #98be65;">
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Todo estimador pode ser treinado e ajustado aos dados usando o m&#233;todo `fit(X, y)`.
+</span>
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Instancia um modelo KNN com 5 vizinhos.
+</span><span style="color: #bbc2cf;">knn</span> <span style="color: #bbc2cf;">=</span> KNeighborsClassifier(n_neighbors<span style="color: #bbc2cf;">=</span>5)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Treina o modelo usando os dados padronizados.
+</span>knn.fit(X_train_scaled, y_train)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Predi&#231;&#227;o e avalia&#231;&#227;o
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">Uma vez que o estimador est&#225; treinado, voc&#234; n&#227;o precisa trein&#225;-lo novamente para prever
+</span><span style="color: #98be65;"># </span><span style="color: #98be65;">os resultados de novos dados.
+</span>
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Realiza a predi&#231;&#227;o para a divis&#227;o de teste.
+</span><span style="color: #bbc2cf;">y_pred</span> <span style="color: #bbc2cf;">=</span> knn.predict(X_test_scaled)
+
+<span style="color: #98be65;"># </span><span style="color: #98be65;">Calcula e imprime a pontua&#231;&#227;o de acur&#225;cia, relat&#243;rio de classifica&#231;&#227;o e matriz de confus&#227;o.
+</span><span style="color: #DFDFDF; font-weight: bold;">print</span>(f<span style="color: #b4916d;">"Acur&#225;cia Global: </span>{accuracy_score(y_test, y_pred):.2f}<span style="color: #b4916d;">"</span>)
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(<span style="color: #b4916d;">"</span><span style="color: #bbc2cf;">\n</span><span style="color: #b4916d;">Relat&#243;rio de Classifica&#231;&#227;o:"</span>)
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(classification_report(y_test, y_pred))
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(<span style="color: #b4916d;">"</span><span style="color: #bbc2cf;">\n</span><span style="color: #b4916d;">Matriz de Confus&#227;o:"</span>)
+<span style="color: #DFDFDF; font-weight: bold;">print</span>(confusion_matrix(y_test, y_pred))
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1ae97d7" class="outline-3">
+<h3 id="org1ae97d7"><span class="section-number-3">1.3.</span> Interpretando as Métricas do Modelo</h3>
+</div>
+<div id="outline-container-orgfd42e50" class="outline-3">
+<h3 id="orgfd42e50"><span class="section-number-3">1.4.</span> Notas Metodológicas</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li><b>Overfitting:</b> Treinar e testar no mesmo conjunto mascara a incapacidade do modelo de lidar com dados inéditos.</li>
+<li><b>Escalonamento:</b> O KNN baseia-se em cálculos de distância (Euclidiana por padrão). Se uma característica tiver uma escala muito maior que as outras, ela dominará o cálculo injustamente.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org706e415" class="outline-3">
+<h3 id="org706e415"><span class="section-number-3">1.5.</span> Exercícios Propostos</h3>
+<div class="outline-text-3" id="text-1-5">
+<ol class="org-ol">
+<li>Pesquise e explique a diferença entre o <code>StandardScaler</code>, <code>MinMaxScaler</code> e <code>RobustScaler</code>.</li>
+<li>Explique, com suas palavras, a diferença conceitual entre os métodos <code>.fit()</code>, <code>.transform()</code> e <code>.predict()</code>.</li>
+<li>O que acontece com a fronteira de decisão se alterarmos o valor de <code>n_neighbors</code> para 1 ou para 50?</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-orge0ebf53" class="outline-2">
+<h2 id="orge0ebf53"><span class="section-number-2">2.</span> Modelo de Regressão K-NN (California Housing)</h2>
+</div>
+<div id="outline-container-orge27c7fe" class="outline-2">
+<h2 id="orge27c7fe"><span class="section-number-2">3.</span> Referências</h2>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Diogo G. Bonofre dos Santos</p>
+<p class="date">Created: 2026-04-02 Thu 19:40</p>
+</div>
+</body>
+</html>

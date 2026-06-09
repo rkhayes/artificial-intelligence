@@ -10,7 +10,7 @@ iris = load_iris(as_frame=True)
 df = iris.frame
 
 # Mapping target to real names of the species for easier reading.
-df['species'] = df['target'].map(dict(enumerate(iris.target_names)))
+df["species"] = df["target"].map(dict(enumerate(iris.target_names)))
 
 # Checking the features and labels table
 print(3 * "5 FIRST LINES")
@@ -31,7 +31,9 @@ plt.suptitle("Feature Relation (Pairplot)", y=1.02)
 
 # Boxplot: the best to detect visual outliers in each feature.
 plt.figure(figsize=(10, 6))
-sns.boxplot(data=df.drop(["target", "species"], axis=1), orient="h", palette="Set2")
+sns.boxplot(
+    data=df.drop(["target", "species"], axis=1), orient="h", palette="Set2"
+)
 plt.title("Distribution and detection of outliers")
 
 plt.show()

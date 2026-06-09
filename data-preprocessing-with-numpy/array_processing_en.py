@@ -51,7 +51,7 @@ print(arrx.mean())
 # Indexing and slicing
 # When can use colons to separate the standard Python slicing notation into dimensions
 # when dealing with NumPy arrays.
-print(arrx[1:,1:])
+print(arrx[1:, 1:])
 
 # Boolean indexing
 # We can apply conditional masks.

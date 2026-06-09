@@ -59,8 +59,13 @@ def main():
                     )
 
                 entries = struct.unpack(">I", f.read(4))[0]
-                if entries not in [10000, 60000]:  # [Train, Test] entries expected
-                    raise ValueError(f"Invalid entry count: {entries}. Expected 60000.")
+                if entries not in [
+                    10000,
+                    60000,
+                ]:  # [Train, Test] entries expected
+                    raise ValueError(
+                        f"Invalid entry count: {entries}. Expected 60000."
+                    )
 
                 byte_object = f.read()
                 digit_frequencies = [0] * 10

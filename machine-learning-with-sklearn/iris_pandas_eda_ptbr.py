@@ -10,7 +10,7 @@ iris = load_iris(as_frame=True)
 df = iris.frame
 
 # Mapeia a variável alvo para os nomes reais das espécies para facilitar a leitura
-df['species'] = df['target'].map(dict(enumerate(iris.target_names)))
+df["species"] = df["target"].map(dict(enumerate(iris.target_names)))
 
 # Verifica a tabela de características e rótulos
 print(3 * "5 PRIMEIRAS LINHAS ")
@@ -31,7 +31,9 @@ plt.suptitle("Relação entre Variáveis (Pairplot)", y=1.02)
 
 # Boxplot: o melhor para detectar visualmente valores atípicos em cada variável.
 plt.figure(figsize=(10, 6))
-sns.boxplot(data=df.drop(["target", "species"], axis=1), orient="h", palette="Set2")
+sns.boxplot(
+    data=df.drop(["target", "species"], axis=1), orient="h", palette="Set2"
+)
 plt.title("Distribuição e detecção de valores atípicos")
 
 plt.show()

@@ -6,7 +6,10 @@ from sklearn.datasets import load_breast_cancer
 
 # EXPLORATORY DATA ANALYSIS
 # Loading the data
-X, y = load_breast_cancer(as_frame=True).data, load_breast_cancer(as_frame=True).target
+X, y = (
+    load_breast_cancer(as_frame=True).data,
+    load_breast_cancer(as_frame=True).target,
+)
 
 # Let's look all the data contained in the dataset:
 print(X.head())

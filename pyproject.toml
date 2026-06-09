@@ -1,11 +1,7 @@
 [project]
 name = "artificial-intelligence"
 version = "0.1.0"
-<<<<<<< HEAD
-description = ""
-=======
 description = "A collection of personal research and empirical experiments in AI"
->>>>>>> 3a130d6 (Added content on README to improve discoverability)
 readme = "README.org"
 requires-python = ">=3.11"
 dependencies = [
@@ -15,3 +11,16 @@ dependencies = [
     "scikit-learn>=1.8.0",
     "seaborn>=0.13.2",
 ]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1.1",
+    "ruff>=0.15.16",
+]
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "double"

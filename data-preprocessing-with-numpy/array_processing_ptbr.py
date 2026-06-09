@@ -38,7 +38,7 @@ print(arrx + arry)
 print(arrx - arry)
 print(arrx * arry)
 print(arrx / arry)
-print(np.dot(arrx, arry)) # Produto escalar / Multiplicação de matrizes
+print(np.dot(arrx, arry))  # Produto escalar / Multiplicação de matrizes
 
 # Agregações matemáticas
 # Se o parâmetro axis=0, a operação é realizada nas colunas
@@ -51,7 +51,7 @@ print(arrx.mean())
 # Indexação e fatiamento (slicing)
 # Podemos usar dois pontos para separar a notação padrão de fatiamento do Python em dimensões
 # ao lidar com arrays NumPy.
-print(arrx[1:,1:])
+print(arrx[1:, 1:])
 
 # Indexação booleana
 # Podemos aplicar máscaras condicionais.
