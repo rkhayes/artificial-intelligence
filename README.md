@@ -1,5 +1,5 @@
 # Artificial Intelligence
-A collection of personal research and empirical experiments in AI. This repository bridges the gap between classical algorithmic approaches and modern paradigms, serving as both a technical sandbox and a conceptual reference for explore and understand the field.
+A collection of personal research and empirical experiments in AI. This repository bridges the gap between classical algorithmic approaches and modern paradigms, serving as both a technical sandbox and a conceptual reference for me to explore and understand the field.
 
 ## Instructions for Students
 To interact with this repository, replicate the experiments, or utilize the modules for academic coursework, follow the standardized environment setup below.
