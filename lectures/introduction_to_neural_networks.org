@@ -1,0 +1,163 @@
+#+TITLE: Introdução a Redes Neurais
+#+AUTHOR: Diogo G. Bonofre dos Santos
+#+DATE: <2026-03-14 Sat>
+#+STARTUP: nolatexpreview
+* Prolegomenos
+Para aqueles que desejarem se aprofundar nos pré-requisitos da matéria adiante recomenda-se a revisão dos seguintes tópicos:
++ Conjuntos numéricos;
++ Equações polinomiais;
++ Sistemas lineares 2x2 e 3x3;
+
+* Matrizes
+Matrizes nos permitem trabalhar eficientemente em uma miríade de campos do conhecimento, mas são especialmente úteis quando falamos de computadores. Arranjar dados de forma matricial e operar processando estes valores de forma simultânea com a utilização de GPUs é o que tornou as inteligências artificiais e algoritmos de machine learning não só possíveis, mas eficientes o suficiente para que se tornassem viáveis.
+
+Nas redes neurais, nos permitem processar a equacao principal ($w \cdot X + b$) para todos os neurônios uma camada simultaneamente. Essa vetorização dos cálculos elimina a necessidade de laços de repetição iterativos (/loops/), tirando máximo proveito da arquitetura paralela do hardware.
+
+Para tanto, é necessário compreender o que se entende por matriz. Vejamos:
+
+*Definição*:
+Entende-se por matriz $m \cdot n$ todo quadro em que podemos colocar números distribuídos em $m$ linhas e $n$ colunas.
+
+Formalmente, é definida por:
+#+CAPTION: Definição de matriz $m \cdot n$
+#+NAME: fig:def-matriz-m*n
+\begin{equation}
+A = [a_{ij}]_{m \cdot n} \\
+\end{equation}
+
+Onde $a_{ij}$ representa o elemento na i-ésima linha e j-ésima coluna.
+
+#+CAPTION: Modelo de matriz $m \cdot n$
+#+NAME: fig:matriz-m*n
+\begin{equation}
+A = \begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n} \\
+a_{21} & a_{22} & \cdots & a_{2n} \\
+\vdots & \vdots & \ddots & \vdots \\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{pmatrix}
+\end{equation}
+
+Em redes neurais:
++ $X$ (/input/) é frequentemente uma matriz onde cada linha é um exemplo e cada coluna um atributo (/feature/).
+
+** Elementos das Matrizes
+*** Matriz Linha e Matriz Coluna
+#+CAPTION: Exemplo de matriz linha $1 \cdot n$
+#+NAME: fig:matriz-linha
+\begin{equation}
+L = \begin{pmatrix}
+a_{11} & a_{12} & \cdots & a_{1n}
+\end{pmatrix}
+\end{equation}
+
+#+CAPTION: Exemplo de matriz coluna $m \cdot 1$
+#+NAME: fig:matriz-coluna
+\begin{equation}
+C = \begin{pmatrix}
+a_{11} \\
+a_{21} \\
+\vdots \\
+a_{m1}
+\end{pmatrix}
+\end{equation}
+
+*** Diagonais Principal e Secundária
+#+CAPTION: Modelo de matriz $3 \times 3$ com índices $a_{ij}$
+#+NAME: fig:matriz-3x3
+\begin{equation}
+A = \begin{pmatrix}
+a_{11} & a_{12} & a_{13} \\
+a_{21} & a_{22} & a_{23} \\
+a_{31} & a_{32} & a_{33}
+\end{pmatrix}
+\end{equation}
+
+Na seguinte disposição as diagonais principal e secundária são respectivamente compostas pelos elementos:
+#+CAPTION: Composição da diagonal principal
+#+NAME: fig:matriz-dp
+\begin{equation}
+D_{\mathrm{P}} = \begin{pmatrix}
+a_{\mathrm{11}} & a_{\mathrm{22}} & a_{\mathrm{33}} \\
+\end{pmatrix}
+\end{equation}
+
+#+CAPTION: Composição da diagonal secundária
+#+NAME: fig:matriz-ds
+\begin{equation}
+D_{\mathrm{S}} = \begin{pmatrix}
+a_{\mathrm{13}} & a_{\mathrm{22}} & a_{\mathrm{31}}
+\end{pmatrix}
+\end{equation}
+
+** Operações com Matrizes
+*** Igualdade de Matrizes
+*Definição*:
+\begin{equation}
+[a_{\mathrm{ij}}] = [b_{\mathrm{ij}}] \iff a_{\mathrm{ij}} = b_{\mathrm{ij}} \forall i \in \{1, 2, \dots, m\} \land j \in \{1, 2, \dots, n\}
+\end{equation}
+
+Lê-se: "Duas matrizes são ditas iguais se e somente se possuem mesma ordem e todos os seus elementos correspondentes são iguais".
+
+*Exemplo*:
+\begin{equation}
+\begin{pmatrix} 5_{} & 1_{} \\ 7_{} & 2_{} \end{pmatrix} = \begin{pmatrix} 5 & 1 \\ 7 & 2 \end{pmatrix}
+\end{equation}
+
+*** Adição e Subtração
+Operam elemento por elemento. Requerem que as matrizes tenham as mesmas dimensões ($m \cdot n$). Se $C = A + B$, então $c_{ij} = a_{ij} + b_{ij}$.
+
+No contexto de redes neurais, é usado para adicionar o vetor de viés (bias, $b$) aos resultados da multiplicação, utilizando-se frequentemente a técnica de /broadcasting/ para alinhar as dimensões.
+
+*Exemplo*:
+\begin{equation}
+A + B = \begin{pmatrix} 5 + 1 & -2 + 7 \\ 0 + 3 & 4 + (-1) \end{pmatrix} = \begin{pmatrix} 6 & 5 \\ 3 & 3 \end{pmatrix}
+\end{equation}
+
+*** Multiplicação por Escalar
+Multiplica-se cada elemento da matriz por um número real. Se $C = k \cdot A$, então $c_{ij} = k \cdot a_{ij}$.
+
+Utilizado ao ajustar as taxas de aprendizado (/learning rate/) durante a atualização dos pesos no algoritmo de /backpropagation/.
+
+*Exemplo*:
+\begin{equation}
+3M = \begin{pmatrix} 3 \cdot 2 & 3 \cdot 0 & 3 \cdot (-4) \\ 3 \cdot 1 & 3 \cdot 5 & 3 \cdot 3 \end{pmatrix} = \begin{pmatrix} 6 & 0 & -12 \\ 3 & 15 & 9 \end{pmatrix}
+\end{equation}
+
+*** Produto Matricial (Multiplicação de Matrizes)
+É a operação mais custosa e importante em redes neurais. Para multiplicar $A$ por $B$, o número de colunas de $A$ deve ser igual ao número de linhas de $B$.
+Se $A$ tem tamanho $m \cdot p$ e $B$ tem tamanho $p \cdot n$, o resultado $C$ terá tamanho $m \cdot n$.
+
+\begin{equation}
+c_{ij} = \sum_{k=1}^{p} a_{ik} \cdot b_{kj}
+\end{equation}
+
+Calcula a "combinação linear" das entradas com os pesos na equação da camada (/forward pass/).
+
+*** Matriz Transposta
+Inverte linhas e colunas. Indicada por $A^T$.
+Se $A$ tem tamanho $m \cdot n$, $A^T$ terá tamanho $n \cdot m$, onde $a^T_{ij} = a_{ji}$.
+Essencial no cálculo de derivadas (gradientes) durante o ajuste de pesos (/backpropagation/) para que as dimensões das matrizes se alinhem corretamente para o produto matricial.
+
+*** Multiplicação Escalar
+Dado um escalar $k$ e uma matriz $M$, a multiplicação $k \cdot M$ resulta em cada elemento de $M$ multiplicado por $k$.
+
+**  Tensores
+Trata-se de uma generalização de matrizes para $n$ dimensões.
++  Um numero isolado e um tensor 0D (escalar);
++ uma lista, 1D (vetor);
++ uma tabela, 2D (matriz);
++ arranjos mais complexos sao tensores 3D, 4D, ND.
+Servem para armazenar images, textos, e os pesos da rede.
+
+* Estruturas Neuronais
+** Neurônio biológico vs neurônio artificial
++ *Biológico*: Recebe sinais químicos/elétricos pelos /dendritos/, acumula a energia no /corpo celular/ e, ao atingir um limite, dispara um novo impulso elétrico pelo /axônio/ para as próximas células.
++ *Artificial*: É uma abstração matemática inspirada na biologia. Ele recebe números (entradas), multiplica cada um por um /peso/ (que simula a força da conexão), faz a /soma/ desses valores e passa o resultado por uma /função de ativação/ matemática para determinar o valor de saída.
+
+* Referências
++ https://www.datacamp.com/pt/blog/what-is-symbolic-ai
++ https://www.youtube.com/watch?v=MO-AExWdl4Q&t=1309s
++ https://youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab&si=gx0i0mWixdtiZMQE
++ https://youtu.be/KuXjwB4LzSA?si=aJDbaRblCewMEGKz
++ [[https://pdf.sciencedirectassets.com/272071/1-s2.0-S0160289624X00033/1-s2.0-S0160289624000266/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEI7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJIMEYCIQDJuCL6LwH7mmEoXYSmxLNMYwTIj2CreufToy%2FsJl90twIhALs5rodRb4IDtxZvG2geWKINMv4ks5UuaznLGc2TnOqRKrIFCFcQBRoMMDU5MDAzNTQ2ODY1IgwFoRxk2qqTTflOTGkqjwXOt97dZ0wmx1awYOAVgA8QzCGpOFxrbH97kTVpBlCfwQLco10MGdLB4rvqbp2274zC8yZPtFK16mTrNM5JadSXUp83GzzGHbT61NDzCcUTlVFlS%2BdHMPEdybZT%2BWcneooDD6K0fpjHM2sxn1A8Lw7la%2FpcsTz3ykV7nlP59YWgzGz%2FQWhllsXDuYtjzI24YdHUJdMqcoKaOfZcDElg0UAsVk8Kq5h1SCKftRFsAf1dsOWlgyrpRkmhWmRC%2BAz0LTw6%2FPha2%2BbvOFHfsCrJbVIE22XKzz60F4%2BGZUQejXidNFukUCv0h%2F5gUtXoYq4WvpaaVSJv3XqC1G3JcfgKKVfNlGoT1EjUDYVgs98x2CvmsIqOd%2B6X3PglFRQ9jGmlhSW8uIUeebvUcpgg9oX1NPiVQexCfnI24SLjSaX7iSNhERIhndTpeCvhjrMZYcXN2J70ZjJPhsKbwRN5ovc%2B%2BsyjVbaaTA606YNERfyfAdLgx0B0zUmg%2BZNVU6pcrZQl0IGXMVABM2uukOmhBNx8Cxtfd81hk45jRPUxDDejbXubkgWOTSAxAgzIYnp6FNrZk3DiTDbOfmDquQ8j%2BY8mDZcQjdIQTpH6d%2FxqE5NRKjWa6txQGNksdJ5x5uqVwD%2FHn%2F%2FXSTihXDLoLZwWe2zc3GnswEEh3BmX4jNpGmr9oMz%2BsT%2FipYBQpoJyHQ9V1D9IKAz7WmXDcUXv600DHzcFkZQqGZez7gI3KZ1WuQRJHudTcTSOlR4igdn2T62NbT7uiijYz2ZGmKv3hBiGz3A1y0mRroLJ5hDd%2Fw%2FOtjpZbkc0O6%2Fjx4DnVe52Y0fngPdp83XbwTWbD2J7XlEv9IoZwZNJFR9ILqy8%2BQv8xvxzbQbVMLWo%2FM0GOrAB93XBx4mxkCMpQavW4eE3Z0JzrMMg2XcThblb7hwRbyRASFDfknRG4MBwis9BO6r2fTHd4x9%2BIIjp%2BeexkCmF0WLlpW0bUwAtM4KrbciHTHkxXl3p8tVIZtzhevbPJ7XlZGFL2QzzQJg9oUbTRedd7WAWOFc2eQO1VUsPHSp3XXM3jnyHeD5RlDvepibn7jbPxoR%2BoYPyDk3NKuAIQvzIgwXIi4TGdBd1LATcJ8MlZXA%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20260321T224645Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY4RI7VLJ4%2F20260321%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=ee8f438013239aa60106244f97e5cd81be5712b0e944b3c153b2f1b5d8910ee0&hash=e3dbee916ebc1a02e2c25d49878c26d8e9b8c2eb7a42faaddb2ad2552f538dfa&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S0160289624000266&tid=spdf-04003743-359c-44d5-be9d-db855420b096&sid=eaa373d82d0c9441dc3974789226b48f397cgxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&rh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=04105b0b565558055b56&rr=9e007e9579116258&cc=br][Defining intelligence: Bridging the gap between human and artificial perspectives]]
