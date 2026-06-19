@@ -1,0 +1,11 @@
+## Author: Diogo Bonofre (@hayes)
+## Created: 26-06-15
+## 
+## Commentary:
+## This script demonstrates a manual "forward pass" of a single-node
+## model. It exposes how predictions are generated via linear
+## combinations (y = wx + b) and how the error is quantified using
+## Mean Squared Error (MSE).
+##
+## Code:
+
